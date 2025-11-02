@@ -1,5 +1,6 @@
 package lotto.domain;
 
+import static org.assertj.core.api.Assertions.assertThatCode;
 import static org.assertj.core.api.Assertions.assertThatIllegalArgumentException;
 
 import java.util.List;
@@ -9,6 +10,18 @@ import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
 class LottoTest {
+    @Nested
+    @DisplayName("성공 케이스")
+    class Success {
+
+        @Test
+        @DisplayName("올바른 로또 번호가 오면 예외가 발생하지 않는다")
+        void validLottoNumbers() {
+            assertThatCode(() -> new Lotto(List.of(1, 2, 3, 4, 5, 6)))
+                    .doesNotThrowAnyException();
+        }
+    }
+
     @Nested
     @DisplayName("실패 케이스")
     class Fail {
