@@ -31,7 +31,7 @@ class LottoTest {
         void overMaximumLottoCount() {
             assertThatIllegalArgumentException()
                     .isThrownBy(() -> new Lotto(List.of(1, 2, 3, 4, 5, 6, 7)))
-                    .withMessage(ExceptionMessage.LOTTO_OVER_MAXIMUM_COUNT.getMessage());
+                    .withMessage(ExceptionMessage.LOTTO_INVALID_SIZE.getMessage());
         }
 
         @Test
