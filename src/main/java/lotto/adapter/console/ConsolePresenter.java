@@ -6,4 +6,8 @@ public class ConsolePresenter {
     public void printPurchaseAmountGuide() {
         System.out.println(PURCHASE_AMOUNT_GUIDE);
     }
+
+    public void printErrorMessage(String message){
+        System.out.println(message);
+    }
 }

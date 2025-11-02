@@ -16,8 +16,18 @@ public class ConsoleLottoController {
     }
 
     public void run() {
-        consolePresenter.printPurchaseAmountGuide();
-        String rawPurchaseAmount = consoleInputReader.getConsoleInput();
-        PurchaseAmount purchaseAmount = lottoService.orderPurchaseAmount(rawPurchaseAmount);
+        PurchaseAmount purchaseAmount = getPurchaseAmount();
+    }
+
+    private PurchaseAmount getPurchaseAmount() {
+        while (true) {
+            try {
+                consolePresenter.printPurchaseAmountGuide();
+                String rawPurchaseAmount = consoleInputReader.getConsoleInput();
+                return lottoService.orderPurchaseAmount(rawPurchaseAmount);
+            } catch (IllegalArgumentException e) {
+                consolePresenter.printErrorMessage(e.getMessage());
+            }
+        }
     }
 }
