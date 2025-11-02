@@ -6,6 +6,8 @@ import java.util.Set;
 import lotto.domain.exception.ExceptionMessage;
 
 public class Lotto {
+    private static final int MINIMUM_LOTTO_NUMBER = 1;
+    private static final int MAXIMUM_LOTTO_NUMBER = 45;
     private static final int LOTTO_NUMBERS_SIZE = 6;
 
     private final List<Integer> numbers;
@@ -18,6 +20,13 @@ public class Lotto {
     private void validateLotto(List<Integer> numbers) {
         validateLottoNumbersCount(numbers);
         validateLottoNumbersDuplicate(numbers);
+        validateLottoNumberRange(numbers);
+    }
+
+    private void validateLottoNumberRange(List<Integer> numbers) {
+        if (numbers.stream().anyMatch(number -> number < MINIMUM_LOTTO_NUMBER || number > MAXIMUM_LOTTO_NUMBER)) {
+            throw new IllegalArgumentException(ExceptionMessage.LOTTO_INVALID_RANGE.getMessage());
+        }
     }
 
     private void validateLottoNumbersCount(List<Integer> numbers) {
