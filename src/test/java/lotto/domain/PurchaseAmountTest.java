@@ -25,12 +25,21 @@ class PurchaseAmountTest {
         }
 
         @ParameterizedTest
-        @ValueSource(strings = {"삼천만원", "0.12345", "55 55 33","6000.0"})
+        @ValueSource(strings = {"삼천만원", "0.12345", "55 55 33", "6000.0"})
         @DisplayName("구입금액이 정수가 아닐 경우 예외가 발생한다")
         void isNotDigit(String rawPurchaseAmount) {
             assertThatIllegalArgumentException()
                     .isThrownBy(() -> new PurchaseAmount((rawPurchaseAmount)))
                     .withMessage(ExceptionMessage.PURCHASE_AMOUNT_IS_NOT_DIGIT.getMessage());
+        }
+
+        @ParameterizedTest
+        @ValueSource(strings = {"0", "-0", "-1", "-8000"})
+        @DisplayName("구입금액이 양수가 아닐 경우 예외가 발생한다")
+        void isNotPositive(String rawPurchaseAmount) {
+            assertThatIllegalArgumentException()
+                    .isThrownBy(() -> new PurchaseAmount((rawPurchaseAmount)))
+                    .withMessage(ExceptionMessage.PURCHASE_AMOUNT_IS_NOT_POSITIVE.getMessage());
         }
     }
 }
