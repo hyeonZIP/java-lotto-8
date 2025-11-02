@@ -13,11 +13,20 @@ public class PurchaseAmount {
 
     private void validate(String rawPurchaseAmount) {
         validateEmpty(rawPurchaseAmount);
+        validateDigit(rawPurchaseAmount);
     }
 
     private void validateEmpty(String rawPurchaseAmount) {
         if (rawPurchaseAmount == null || rawPurchaseAmount.isBlank()) {
             throw new IllegalArgumentException(ExceptionMessage.PURCHASE_AMOUNT_IS_EMPTY.getMessage());
+        }
+    }
+
+    private void validateDigit(String rawPurchaseAmount) {
+        try {
+            new BigInteger(rawPurchaseAmount);
+        } catch (NumberFormatException e) {
+            throw new IllegalArgumentException(ExceptionMessage.PURCHASE_AMOUNT_IS_NOT_DIGIT.getMessage());
         }
     }
 }
