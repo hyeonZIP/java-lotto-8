@@ -17,6 +17,18 @@ public class Lotto {
         this.numbers = numbers;
     }
 
+    public static int getMaximumLottoNumber() {
+        return MAXIMUM_LOTTO_NUMBER;
+    }
+
+    public static int getMinimumLottoNumber(){
+        return MINIMUM_LOTTO_NUMBER;
+    }
+
+    public static int getLottoSize(){
+        return MINIMUM_LOTTO_NUMBER;
+    }
+
     private void validateLotto(List<Integer> numbers) {
         validateLottoNumbersCount(numbers);
         validateLottoNumbersDuplicate(numbers);

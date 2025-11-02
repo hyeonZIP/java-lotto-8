@@ -13,6 +13,10 @@ public class PurchaseAmount {
         this.value = parseAndValidate(rawPurchaseAmount);
     }
 
+    public int calculateLottoCount() {
+        return value.divide(LOTTO_PRICE).intValueExact();
+    }
+
     private BigInteger parseAndValidate(String rawPurchaseAmount) {
         validateEmpty(rawPurchaseAmount);
 
