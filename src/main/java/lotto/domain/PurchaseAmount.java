@@ -50,7 +50,7 @@ public class PurchaseAmount {
         BigInteger purchaseAmount = new BigInteger(rawPurchaseAmount);
 
         if (isIndivisible(purchaseAmount)) {
-            throw new IllegalArgumentException(ExceptionMessage.PURCHASE_AMOUNT_IS_NOT_DIVISIBLE.getMessage());
+            throw new IllegalArgumentException(ExceptionMessage.PURCHASE_AMOUNT_IS_INDIVISIBLE.getMessage());
         }
     }
 
