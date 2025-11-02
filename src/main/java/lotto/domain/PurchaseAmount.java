@@ -4,6 +4,8 @@ import java.math.BigInteger;
 import lotto.domain.exception.ExceptionMessage;
 
 public class PurchaseAmount {
+    private static final BigInteger LOTTO_PRICE = new BigInteger("1000");
+
     private final BigInteger value;
 
     public PurchaseAmount(String rawPurchaseAmount) {
@@ -15,6 +17,7 @@ public class PurchaseAmount {
         validateEmpty(rawPurchaseAmount);
         validateDigit(rawPurchaseAmount);
         validatePositive(rawPurchaseAmount);
+        validateDivisible(rawPurchaseAmount);
     }
 
     private void validateEmpty(String rawPurchaseAmount) {
@@ -41,5 +44,17 @@ public class PurchaseAmount {
 
     private boolean isNegative(BigInteger purchaseAmount) {
         return purchaseAmount.compareTo(BigInteger.ZERO) <= 0;
+    }
+
+    private void validateDivisible(String rawPurchaseAmount) {
+        BigInteger purchaseAmount = new BigInteger(rawPurchaseAmount);
+
+        if (isIndivisible(purchaseAmount)) {
+            throw new IllegalArgumentException(ExceptionMessage.PURCHASE_AMOUNT_IS_NOT_DIVISIBLE.getMessage());
+        }
+    }
+
+    private boolean isIndivisible(BigInteger purchaseAmount) {
+        return !purchaseAmount.mod(LOTTO_PRICE).equals(BigInteger.ZERO);
     }
 }
