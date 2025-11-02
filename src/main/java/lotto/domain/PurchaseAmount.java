@@ -9,15 +9,26 @@ public class PurchaseAmount {
     private final BigInteger value;
 
     public PurchaseAmount(String rawPurchaseAmount) {
-        validate(rawPurchaseAmount);
-        this.value = new BigInteger(rawPurchaseAmount);
+        this.value = parseAndValidate(rawPurchaseAmount);
     }
 
-    private void validate(String rawPurchaseAmount) {
+    private BigInteger parseAndValidate(String rawPurchaseAmount) {
         validateEmpty(rawPurchaseAmount);
-        validateDigit(rawPurchaseAmount);
-        validatePositive(rawPurchaseAmount);
-        validateDivisible(rawPurchaseAmount);
+
+        BigInteger purchaseAmount = parse(rawPurchaseAmount);
+
+        validatePositive(purchaseAmount);
+        validateDivisible(purchaseAmount);
+
+        return purchaseAmount;
+    }
+
+    private BigInteger parse(String rawPurchaseAmount) {
+        try {
+            return new BigInteger(rawPurchaseAmount);
+        } catch (NumberFormatException e) {
+            throw new IllegalArgumentException(ExceptionMessage.PURCHASE_AMOUNT_IS_NOT_DIGIT.getMessage());
+        }
     }
 
     private void validateEmpty(String rawPurchaseAmount) {
@@ -26,17 +37,7 @@ public class PurchaseAmount {
         }
     }
 
-    private void validateDigit(String rawPurchaseAmount) {
-        try {
-            new BigInteger(rawPurchaseAmount);
-        } catch (NumberFormatException e) {
-            throw new IllegalArgumentException(ExceptionMessage.PURCHASE_AMOUNT_IS_NOT_DIGIT.getMessage());
-        }
-    }
-
-    private void validatePositive(String rawPurchaseAmount) {
-        BigInteger purchaseAmount = new BigInteger(rawPurchaseAmount);
-
+    private void validatePositive(BigInteger purchaseAmount) {
         if (isNegative(purchaseAmount)) {
             throw new IllegalArgumentException(ExceptionMessage.PURCHASE_AMOUNT_IS_NOT_POSITIVE.getMessage());
         }
@@ -46,9 +47,7 @@ public class PurchaseAmount {
         return purchaseAmount.compareTo(BigInteger.ZERO) <= 0;
     }
 
-    private void validateDivisible(String rawPurchaseAmount) {
-        BigInteger purchaseAmount = new BigInteger(rawPurchaseAmount);
-
+    private void validateDivisible(BigInteger purchaseAmount) {
         if (isIndivisible(purchaseAmount)) {
             throw new IllegalArgumentException(ExceptionMessage.PURCHASE_AMOUNT_IS_INDIVISIBLE.getMessage());
         }
