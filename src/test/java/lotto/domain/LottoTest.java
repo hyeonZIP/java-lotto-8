@@ -41,5 +41,17 @@ class LottoTest {
                     .isThrownBy(() -> new Lotto(List.of(1, 2, 3, 4, 5, 5)))
                     .withMessage(ExceptionMessage.LOTTO_IS_DUPLICATE.getMessage());
         }
+
+        @Test
+        @DisplayName("로또 번호가 (1~45)를 벗어날 경우 예외가 발생한다")
+        void isInvalidRange() {
+            assertThatIllegalArgumentException()
+                    .isThrownBy(() -> new Lotto(List.of(1, 2, 3, 4, 5, 46)))
+                    .withMessage(ExceptionMessage.LOTTO_INVALID_RANGE.getMessage());
+
+            assertThatIllegalArgumentException()
+                    .isThrownBy(() -> new Lotto(List.of(0, 1, 2, 3, 4, 5)))
+                    .withMessage(ExceptionMessage.LOTTO_INVALID_RANGE.getMessage());
+        }
     }
 }
