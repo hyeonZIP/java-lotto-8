@@ -1,5 +1,6 @@
 package lotto.domain;
 
+import static org.assertj.core.api.Assertions.assertThatCode;
 import static org.assertj.core.api.Assertions.assertThatIllegalArgumentException;
 
 import lotto.domain.exception.ExceptionMessage;
@@ -10,6 +11,19 @@ import org.junit.jupiter.params.provider.NullAndEmptySource;
 import org.junit.jupiter.params.provider.ValueSource;
 
 class PurchaseAmountTest {
+    @Nested
+    @DisplayName("성공 케이스")
+    class Success {
+
+        @ParameterizedTest
+        @ValueSource(strings = {"1000", "10000", "12345000", "100000000000000000000000000"})
+        @DisplayName("올바른 구입금액이 입력되면 예외가 발생하지 않는다")
+        void orderPurchaseAmount(String rawPurchaseAmount) {
+            assertThatCode(() -> new PurchaseAmount(rawPurchaseAmount))
+                    .doesNotThrowAnyException();
+        }
+    }
+
     @Nested
     @DisplayName("실패 케이스")
     class Fail {
