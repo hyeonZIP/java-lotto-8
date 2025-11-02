@@ -14,6 +14,7 @@ public class PurchaseAmount {
     private void validate(String rawPurchaseAmount) {
         validateEmpty(rawPurchaseAmount);
         validateDigit(rawPurchaseAmount);
+        validatePositive(rawPurchaseAmount);
     }
 
     private void validateEmpty(String rawPurchaseAmount) {
@@ -28,5 +29,17 @@ public class PurchaseAmount {
         } catch (NumberFormatException e) {
             throw new IllegalArgumentException(ExceptionMessage.PURCHASE_AMOUNT_IS_NOT_DIGIT.getMessage());
         }
+    }
+
+    private void validatePositive(String rawPurchaseAmount) {
+        BigInteger purchaseAmount = new BigInteger(rawPurchaseAmount);
+
+        if (isNegative(purchaseAmount)) {
+            throw new IllegalArgumentException(ExceptionMessage.PURCHASE_AMOUNT_IS_NOT_POSITIVE.getMessage());
+        }
+    }
+
+    private boolean isNegative(BigInteger purchaseAmount) {
+        return purchaseAmount.compareTo(BigInteger.ZERO) <= 0;
     }
 }
