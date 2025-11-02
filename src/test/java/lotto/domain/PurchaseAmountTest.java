@@ -16,7 +16,7 @@ class PurchaseAmountTest {
     class Success {
 
         @ParameterizedTest
-        @ValueSource(strings = {"1000", "10000", "12345000", "100000000000000000000000000"})
+        @ValueSource(strings = {"1000", "10000", "12345000", "100000000"})
         @DisplayName("올바른 구입금액이 입력되면 예외가 발생하지 않는다")
         void orderPurchaseAmount(String rawPurchaseAmount) {
             assertThatCode(() -> new PurchaseAmount(rawPurchaseAmount))
@@ -57,12 +57,21 @@ class PurchaseAmountTest {
         }
 
         @ParameterizedTest
-        @ValueSource(strings = {"1001", "999", "1", "10000000000000009"})
+        @ValueSource(strings = {"1001", "999", "1", "10009"})
         @DisplayName("구입금액이 로또 1장 가격(1,000)으로 나누어 떨어지지 않을 경우 예외가 발생한다")
         void isIndivisible(String rawPurchaseAmount) {
             assertThatIllegalArgumentException()
                     .isThrownBy(() -> new PurchaseAmount((rawPurchaseAmount)))
                     .withMessage(ExceptionMessage.PURCHASE_AMOUNT_IS_INDIVISIBLE.getMessage());
+        }
+
+        @ParameterizedTest
+        @ValueSource(strings = {"200000000", "1000000000000000000"})
+        @DisplayName("구임금액이 1억원을 넘을 경우 예외가 발생한다")
+        void isOverOneBillion(String rawPurchaseAmount) {
+            assertThatIllegalArgumentException()
+                    .isThrownBy(() -> new PurchaseAmount((rawPurchaseAmount)))
+                    .withMessage(ExceptionMessage.PURCHASE_AMOUNT_IS_OVER_MAXIMUM.getMessage());
         }
     }
 }
