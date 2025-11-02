@@ -41,5 +41,14 @@ class PurchaseAmountTest {
                     .isThrownBy(() -> new PurchaseAmount((rawPurchaseAmount)))
                     .withMessage(ExceptionMessage.PURCHASE_AMOUNT_IS_NOT_POSITIVE.getMessage());
         }
+
+        @ParameterizedTest
+        @ValueSource(strings = {"1001", "999", "1", "10000000000000009"})
+        @DisplayName("구입금액이 로또 1장 가격(1,000)으로 나누어 떨어지지 않을 경우 예외가 발생한다")
+        void isNotDivisible(String rawPurchaseAmount) {
+            assertThatIllegalArgumentException()
+                    .isThrownBy(() -> new PurchaseAmount((rawPurchaseAmount)))
+                    .withMessage(ExceptionMessage.PURCHASE_AMOUNT_IS_NOT_DIVISIBLE.getMessage());
+        }
     }
 }
