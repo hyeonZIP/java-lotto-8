@@ -11,10 +11,6 @@ public class WinningLotto {
         this.lotto = Lotto.createWinningLotto(winningNumbers);
     }
 
-    public boolean isOutOfLottoNumberRange(int number) {
-        return lotto.isOutOfLottoNumberRange(number);
-    }
-
     public static WinningLotto of(String winningNumbers, WinningNumberExtractor extractor) {
         validateBlank(winningNumbers);
 
@@ -22,7 +18,7 @@ public class WinningLotto {
     }
 
     public boolean contains(int number) {
-        return lotto.getNumbers().contains(number);
+        return lotto.hasContains(number);
     }
 
     private static List<Integer> extract(String winningNumbers, WinningNumberExtractor extractor) {
@@ -46,5 +42,9 @@ public class WinningLotto {
         return (int) purchaseNumbers.stream()
                 .filter(winningNumbers::contains)
                 .count();
+    }
+
+    public boolean isOutOfLottoNumberRange(int number) {
+        return lotto.isOutOfLottoNumberRange(number);
     }
 }

@@ -32,6 +32,10 @@ public class Lotto {
         return List.copyOf(numbers);
     }
 
+    public boolean hasContains(int number) {
+        return numbers.contains(number);
+    }
+
     public boolean isOutOfLottoNumberRange(int number) {
         return number < MINIMUM_LOTTO_NUMBER || number > MAXIMUM_LOTTO_NUMBER;
     }
