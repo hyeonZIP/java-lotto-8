@@ -12,6 +12,7 @@ public class ConsolePresenter {
     private static final String WINNING_NUMBERS_INPUT_GUIDE = "\n당첨 번호를 입력해 주세요.";
     private static final String BONUS_NUMBER_INPUT_GUIDE = "\n보너스 번호를 입력해 주세요.";
     private static final String LOTTO_RESULT_HEADER = "\n당첨 통계";
+    private static final String LOTTO_SEPARATOR = "---";
 
     public void printPurchaseAmountGuide() {
         System.out.println(PURCHASE_AMOUNT_GUIDE);
@@ -46,5 +47,6 @@ public class ConsolePresenter {
 
     public void printLottoResult() {
         System.out.println(LOTTO_RESULT_HEADER);
+        System.out.println(LOTTO_SEPARATOR);
     }
 }
