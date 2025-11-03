@@ -7,9 +7,9 @@ public class LottoResult {
         this.lottoReward = lottoReward;
     }
 
-    public static LottoResult of(WinningNumbers winningNumbers, BonusNumber bonusNumber, Lotto purchaseLotto) {
-        int matchCount = winningNumbers.countMatches(purchaseLotto);
-        boolean hasBonusNumber = bonusNumber.contains(purchaseLotto);
+    public static LottoResult of(WinningNumbers winningNumbers, BonusNumber bonusNumber, Lotto purchasedLotto) {
+        int matchCount = winningNumbers.countMatches(purchasedLotto);
+        boolean hasBonusNumber = bonusNumber.contains(purchasedLotto);
 
         return new LottoResult(LottoReward.of(matchCount, hasBonusNumber));
     }
