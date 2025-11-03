@@ -18,6 +18,7 @@ public class ConsolePresenter {
     private static final String LOTTO_RESULT_BODY_FORMAT = "%s개 일치%s (%,d원) - %d개\n";
     private static final String BONUS_NUMBER_MATCH_SUFFIX = ", 보너스 볼 일치";
     private static final String EMPTY = "";
+    private static final String REVENUE_RATE_FORMAT = "총 수익률은 %.1f%%입니다.\n";
 
     public void printPurchaseAmountGuide() {
         System.out.println(PURCHASE_AMOUNT_GUIDE);
@@ -55,6 +56,7 @@ public class ConsolePresenter {
         System.out.println(LOTTO_SEPARATOR);
 
         printRewardStatistics(response.details());
+        printRevenueRate(response.revenueRate());
     }
 
     private void printRewardStatistics(List<RewardDetail> details) {
@@ -67,6 +69,10 @@ public class ConsolePresenter {
                     detail.reward(),
                     detail.count());
         }
+    }
+
+    private void printRevenueRate(double revenueRate) {
+        System.out.printf(REVENUE_RATE_FORMAT, revenueRate);
     }
 
     private String getBonusSuffix(boolean hasBonusNumber) {
