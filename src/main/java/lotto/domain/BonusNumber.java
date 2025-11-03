@@ -21,7 +21,7 @@ public class BonusNumber {
     }
 
     public boolean contains(Lotto purchaseLotto) {
-        return purchaseLotto.getNumbers().contains(value);
+        return purchaseLotto.hasContains(value);
     }
 
     private static void validateDuplicate(int bonusNumber, WinningLotto winningLotto) {
