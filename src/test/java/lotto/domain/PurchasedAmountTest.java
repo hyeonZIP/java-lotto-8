@@ -35,7 +35,7 @@ class PurchasedAmountTest {
         void isBlank(String rawPurchaseAmount) {
             assertThatIllegalArgumentException()
                     .isThrownBy(() -> PurchasedAmount.of(rawPurchaseAmount))
-                    .withMessageContaining(ExceptionMessage.PURCHASE_AMOUNT_IS_EMPTY.getMessage());
+                    .withMessage(ExceptionMessage.PURCHASE_AMOUNT_IS_EMPTY.getMessage());
         }
 
         @ParameterizedTest
