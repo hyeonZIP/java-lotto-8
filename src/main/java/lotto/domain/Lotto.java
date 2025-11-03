@@ -3,6 +3,7 @@ package lotto.domain;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import lotto.application.required.RandomNumberGenerator;
 import lotto.domain.exception.ExceptionMessage;
 
 public class Lotto {
@@ -12,21 +13,17 @@ public class Lotto {
 
     private final List<Integer> numbers;
 
-    public Lotto(List<Integer> numbers) {
+    public Lotto(RandomNumberGenerator randomNumberGenerator) {
+        List<Integer> numbers = getRandomNumbers(randomNumberGenerator);
         validateLotto(numbers);
-        this.numbers = numbers;
+        this.numbers = List.copyOf(numbers);
     }
 
-    public static int getMaximumLottoNumber() {
-        return MAXIMUM_LOTTO_NUMBER;
-    }
-
-    public static int getMinimumLottoNumber(){
-        return MINIMUM_LOTTO_NUMBER;
-    }
-
-    public static int getLottoSize(){
-        return MINIMUM_LOTTO_NUMBER;
+    private static List<Integer> getRandomNumbers(RandomNumberGenerator randomNumberGenerator) {
+        return randomNumberGenerator.generateRandomNumbers(
+                MINIMUM_LOTTO_NUMBER,
+                MAXIMUM_LOTTO_NUMBER,
+                LOTTO_SIZE);
     }
 
     private void validateLotto(List<Integer> numbers) {
