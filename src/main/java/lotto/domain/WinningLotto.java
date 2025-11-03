@@ -11,10 +11,18 @@ public class WinningLotto {
         this.lotto = Lotto.createWinningLotto(winningNumbers);
     }
 
+    public boolean isOutOfLottoNumberRange(int number) {
+        return lotto.isOutOfLottoNumberRange(number);
+    }
+
     public static WinningLotto of(String winningNumbers, WinningNumberExtractor extractor) {
         validateBlank(winningNumbers);
 
         return new WinningLotto(extract(winningNumbers, extractor));
+    }
+
+    public boolean contains(int number) {
+        return lotto.getNumbers().contains(number);
     }
 
     private static List<Integer> extract(String winningNumbers, WinningNumberExtractor extractor) {

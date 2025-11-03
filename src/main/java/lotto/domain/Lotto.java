@@ -32,6 +32,10 @@ public class Lotto {
         return List.copyOf(numbers);
     }
 
+    public boolean isOutOfLottoNumberRange(int number) {
+        return number < MINIMUM_LOTTO_NUMBER || number > MAXIMUM_LOTTO_NUMBER;
+    }
+
     private static List<Integer> getRandomNumbers(RandomNumberGenerator randomNumberGenerator) {
         return randomNumberGenerator.generateRandomNumbers(
                 MINIMUM_LOTTO_NUMBER,
