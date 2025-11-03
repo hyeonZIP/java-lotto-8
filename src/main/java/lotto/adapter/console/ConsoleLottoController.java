@@ -32,6 +32,8 @@ public class ConsoleLottoController {
         consolePresenter.printLottoDispenserResult(LottoDispenserResponse.of(lottos));
 
         WinningLotto winningLotto = getWinningLotto();
+
+        consolePresenter.printBonusNumberInputGuide();
     }
 
     private WinningLotto getWinningLotto() {
