@@ -34,6 +34,7 @@ public class ConsoleLottoController {
         WinningLotto winningLotto = getWinningLotto();
 
         consolePresenter.printBonusNumberInputGuide();
+        String rawBonusNumber = consoleInputReader.getConsoleInput();
     }
 
     private WinningLotto getWinningLotto() {
