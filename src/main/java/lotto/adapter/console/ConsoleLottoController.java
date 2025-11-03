@@ -2,7 +2,6 @@ package lotto.adapter.console;
 
 import lotto.adapter.console.dto.LottoDispenserResponse;
 import lotto.adapter.console.dto.LottoResultResponse;
-import lotto.application.BonusNumberRegisterService;
 import lotto.application.LottoDispenserService;
 import lotto.application.WinningLottoRegisterService;
 import lotto.domain.BonusNumber;
@@ -16,17 +15,14 @@ public class ConsoleLottoController {
     private final ConsoleInputReader consoleInputReader;
     private final LottoDispenserService lottoDispenserService;
     private final WinningLottoRegisterService winningLottoRegisterService;
-    private final BonusNumberRegisterService bonusNumberRegisterService;
 
     public ConsoleLottoController(ConsolePresenter consolePresenter, ConsoleInputReader consoleInputReader,
                                   LottoDispenserService lottoDispenserService,
-                                  WinningLottoRegisterService winningLottoRegisterService,
-                                  BonusNumberRegisterService bonusNumberRegisterService) {
+                                  WinningLottoRegisterService winningLottoRegisterService) {
         this.consolePresenter = consolePresenter;
         this.consoleInputReader = consoleInputReader;
         this.lottoDispenserService = lottoDispenserService;
         this.winningLottoRegisterService = winningLottoRegisterService;
-        this.bonusNumberRegisterService = bonusNumberRegisterService;
     }
 
     public void run() {
@@ -49,7 +45,7 @@ public class ConsoleLottoController {
             try {
                 consolePresenter.printBonusNumberInputGuide();
                 String rawBonusNumber = consoleInputReader.getConsoleInput();
-                return bonusNumberRegisterService.registerBonusNumber(rawBonusNumber, winningLotto);
+                return BonusNumber.register(rawBonusNumber, winningLotto);
             } catch (IllegalArgumentException e) {
                 consolePresenter.printErrorMessage(e.getMessage());
             }
