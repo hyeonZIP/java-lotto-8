@@ -6,7 +6,7 @@ import lotto.application.provided.LottoDispenser;
 import lotto.application.required.RandomNumberGenerator;
 import lotto.domain.Lotto;
 import lotto.domain.Lottos;
-import lotto.domain.PurchaseAmount;
+import lotto.domain.PurchasedAmount;
 
 public class LottoDispenserService implements LottoDispenser {
     private final RandomNumberGenerator randomNumberGenerator;
@@ -16,8 +16,8 @@ public class LottoDispenserService implements LottoDispenser {
     }
 
     @Override
-    public Lottos dispenseLottos(PurchaseAmount purchaseAmount) {
-        int lottoCount = purchaseAmount.calculateLottoCount();
+    public Lottos dispenseLottos(PurchasedAmount purchasedAmount) {
+        int lottoCount = purchasedAmount.calculateLottoCount();
 
         List<Lotto> lottos = Stream.generate(() -> Lotto.createRandomLotto(randomNumberGenerator))
                 .limit(lottoCount)

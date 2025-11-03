@@ -3,13 +3,13 @@ package lotto.domain;
 import java.math.BigInteger;
 import lotto.domain.exception.ExceptionMessage;
 
-public class PurchaseAmount {
+public class PurchasedAmount {
     private static final BigInteger LOTTO_PRICE = new BigInteger("1000");
     private static final BigInteger MAXIMUM_PURCHASE_AMOUNT = new BigInteger("100000000");
 
     private final BigInteger value;
 
-    public PurchaseAmount(String rawPurchaseAmount) {
+    public PurchasedAmount(String rawPurchaseAmount) {
         this.value = parseAndValidate(rawPurchaseAmount);
     }
 

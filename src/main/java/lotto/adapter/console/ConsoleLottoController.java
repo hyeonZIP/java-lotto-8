@@ -9,7 +9,7 @@ import lotto.application.WinningLottoRegisterService;
 import lotto.domain.BonusNumber;
 import lotto.domain.LottoResults;
 import lotto.domain.Lottos;
-import lotto.domain.PurchaseAmount;
+import lotto.domain.PurchasedAmount;
 import lotto.domain.WinningLotto;
 
 public class ConsoleLottoController {
@@ -33,9 +33,9 @@ public class ConsoleLottoController {
     }
 
     public void run() {
-        PurchaseAmount purchaseAmount = getPurchaseAmount();
+        PurchasedAmount purchasedAmount = getPurchaseAmount();
 
-        Lottos lottos = getLottos(purchaseAmount);
+        Lottos lottos = getLottos(purchasedAmount);
         consolePresenter.printLottoDispenserResult(LottoDispenserResponse.of(lottos));
 
         WinningLotto winningLotto = getWinningLotto();
@@ -44,7 +44,7 @@ public class ConsoleLottoController {
 
         LottoResults results = LottoResults.of(winningLotto, bonusNumber, lottos);
 
-        consolePresenter.printLottoResult(LottoResultResponse.of(results, purchaseAmount));
+        consolePresenter.printLottoResult(LottoResultResponse.of(results, purchasedAmount));
     }
 
     private BonusNumber getBonusNumber(WinningLotto winningLotto) {
@@ -71,7 +71,7 @@ public class ConsoleLottoController {
         }
     }
 
-    private PurchaseAmount getPurchaseAmount() {
+    private PurchasedAmount getPurchaseAmount() {
         while (true) {
             try {
                 consolePresenter.printPurchaseAmountGuide();
@@ -83,7 +83,7 @@ public class ConsoleLottoController {
         }
     }
 
-    private Lottos getLottos(PurchaseAmount purchaseAmount) {
-        return lottoDispenserService.dispenseLottos(purchaseAmount);
+    private Lottos getLottos(PurchasedAmount purchasedAmount) {
+        return lottoDispenserService.dispenseLottos(purchasedAmount);
     }
 }

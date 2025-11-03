@@ -1,11 +1,11 @@
 package lotto.application;
 
 import lotto.application.provided.LottoOrder;
-import lotto.domain.PurchaseAmount;
+import lotto.domain.PurchasedAmount;
 
 public class LottoOrderService implements LottoOrder {
     @Override
-    public PurchaseAmount orderPurchaseAmount(String rawPurchaseAmount) {
-        return new PurchaseAmount(rawPurchaseAmount);
+    public PurchasedAmount orderPurchaseAmount(String rawPurchaseAmount) {
+        return new PurchasedAmount(rawPurchaseAmount);
     }
 }

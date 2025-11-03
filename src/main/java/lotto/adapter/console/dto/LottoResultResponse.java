@@ -5,10 +5,10 @@ import java.util.List;
 import java.util.Map;
 import lotto.domain.LottoResults;
 import lotto.domain.LottoReward;
-import lotto.domain.PurchaseAmount;
+import lotto.domain.PurchasedAmount;
 
 public record LottoResultResponse(List<RewardDetail> details, double revenueRate) {
-    public static LottoResultResponse of(LottoResults lottoResults, PurchaseAmount purchaseAmount) {
+    public static LottoResultResponse of(LottoResults lottoResults, PurchasedAmount purchasedAmount) {
         Map<LottoReward, Long> tallyRewardResult = lottoResults.tallyReward();
 
         List<RewardDetail> details = Arrays.stream(LottoReward.values())
@@ -21,7 +21,7 @@ public record LottoResultResponse(List<RewardDetail> details, double revenueRate
                 ))
                 .toList();
 
-        double revenueRate = lottoResults.calculateRevenueRate(purchaseAmount);
+        double revenueRate = lottoResults.calculateRevenueRate(purchasedAmount);
 
         return new LottoResultResponse(details, revenueRate);
     }
