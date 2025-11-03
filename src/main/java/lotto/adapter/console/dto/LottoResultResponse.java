@@ -13,12 +13,7 @@ public record LottoResultResponse(List<RewardDetail> details, double revenueRate
 
         List<RewardDetail> details = Arrays.stream(LottoReward.values())
                 .filter(reward -> reward != LottoReward.NONE)
-                .map(reward -> new RewardDetail(
-                        reward.getMatchCount(),
-                        reward.getHasBonusNumber(),
-                        reward.getReward(),
-                        tallyRewardResult.getOrDefault(reward, 0L)
-                ))
+                .map(reward -> RewardDetail.of(reward, tallyRewardResult.getOrDefault(reward, 0L)))
                 .toList();
 
         double revenueRate = lottoResults.calculateRevenueRate(purchasedAmount);
