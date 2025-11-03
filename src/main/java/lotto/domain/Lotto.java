@@ -19,6 +19,10 @@ public class Lotto {
         this.numbers = List.copyOf(numbers);
     }
 
+    public List<Integer> getNumbers() {
+        return List.copyOf(numbers);
+    }
+
     private static List<Integer> getRandomNumbers(RandomNumberGenerator randomNumberGenerator) {
         return randomNumberGenerator.generateRandomNumbers(
                 MINIMUM_LOTTO_NUMBER,
