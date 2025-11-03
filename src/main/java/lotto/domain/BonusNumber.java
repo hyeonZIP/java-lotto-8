@@ -9,13 +9,13 @@ public class BonusNumber {
         this.value = value;
     }
 
-    public static BonusNumber of(String rawBonusNumber, WinningLotto winningLotto) {
+    public static BonusNumber of(String rawBonusNumber, WinningNumbers winningNumbers) {
         validateBlank(rawBonusNumber);
 
         int bonusNumber = parse(rawBonusNumber);
 
-        validateRange(bonusNumber, winningLotto);
-        validateDuplicate(bonusNumber, winningLotto);
+        validateRange(bonusNumber, winningNumbers);
+        validateDuplicate(bonusNumber, winningNumbers);
 
         return new BonusNumber(bonusNumber);
     }
@@ -24,14 +24,14 @@ public class BonusNumber {
         return purchaseLotto.hasContains(value);
     }
 
-    private static void validateDuplicate(int bonusNumber, WinningLotto winningLotto) {
-        if (winningLotto.contains(bonusNumber)) {
+    private static void validateDuplicate(int bonusNumber, WinningNumbers winningNumbers) {
+        if (winningNumbers.contains(bonusNumber)) {
             throw new IllegalArgumentException(ExceptionMessage.BONUS_NUMBER_IS_DUPLICATE.getMessage());
         }
     }
 
-    private static void validateRange(int bonusNumber, WinningLotto winningLotto) {
-        if (winningLotto.isOutOfLottoNumberRange(bonusNumber)) {
+    private static void validateRange(int bonusNumber, WinningNumbers winningNumbers) {
+        if (winningNumbers.isOutOfLottoNumberRange(bonusNumber)) {
             throw new IllegalArgumentException(ExceptionMessage.BONUS_NUMBER_IS_OUT_OF_RANGE.getMessage());
         }
     }

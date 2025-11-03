@@ -8,7 +8,7 @@ import lotto.domain.BonusNumber;
 import lotto.domain.LottoResults;
 import lotto.domain.Lottos;
 import lotto.domain.PurchasedAmount;
-import lotto.domain.WinningLotto;
+import lotto.domain.WinningNumbers;
 
 public class ConsoleLottoController {
     private final ConsolePresenter consolePresenter;
@@ -31,33 +31,33 @@ public class ConsoleLottoController {
         Lottos lottos = Lottos.of(purchasedAmount, randomNumberGenerator);
         consolePresenter.printLottoDispenserResult(LottoDispenserResponse.of(lottos));
 
-        WinningLotto winningLotto = getWinningLotto();
+        WinningNumbers winningNumbers = getWinningLotto();
 
-        BonusNumber bonusNumber = getBonusNumber(winningLotto);
+        BonusNumber bonusNumber = getBonusNumber(winningNumbers);
 
-        LottoResults results = LottoResults.of(winningLotto, bonusNumber, lottos);
+        LottoResults results = LottoResults.of(winningNumbers, bonusNumber, lottos);
 
         consolePresenter.printLottoResult(LottoResultResponse.of(results, purchasedAmount));
     }
 
-    private BonusNumber getBonusNumber(WinningLotto winningLotto) {
+    private BonusNumber getBonusNumber(WinningNumbers winningNumbers) {
         while (true) {
             try {
                 consolePresenter.printBonusNumberInputGuide();
                 String rawBonusNumber = consoleInputReader.getConsoleInput();
-                return BonusNumber.of(rawBonusNumber, winningLotto);
+                return BonusNumber.of(rawBonusNumber, winningNumbers);
             } catch (IllegalArgumentException e) {
                 consolePresenter.printErrorMessage(e.getMessage());
             }
         }
     }
 
-    private WinningLotto getWinningLotto() {
+    private WinningNumbers getWinningLotto() {
         while (true) {
             try {
                 consolePresenter.printWinningNumbersInputGuide();
                 String rawWinningNumbers = consoleInputReader.getConsoleInput();
-                return WinningLotto.of(rawWinningNumbers, winningNumberExtractor);
+                return WinningNumbers.of(rawWinningNumbers, winningNumberExtractor);
             } catch (IllegalArgumentException e) {
                 consolePresenter.printErrorMessage(e.getMessage());
             }

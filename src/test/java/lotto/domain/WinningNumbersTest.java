@@ -14,7 +14,7 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.NullAndEmptySource;
 import org.junit.jupiter.params.provider.ValueSource;
 
-class WinningLottoTest {
+class WinningNumbersTest {
     @Nested
     @DisplayName("성공 케이스")
     class Success {
@@ -25,7 +25,7 @@ class WinningLottoTest {
             String winningNumbers = "1,2,3,4,5,6";
             WinningNumberExtractor extractor = mockWinningNumberExtractor(List.of(1, 2, 3, 4, 5, 6));
 
-            assertThatCode(() -> WinningLotto.of(winningNumbers, extractor))
+            assertThatCode(() -> WinningNumbers.of(winningNumbers, extractor))
                     .doesNotThrowAnyException();
         }
     }
@@ -42,7 +42,7 @@ class WinningLottoTest {
             WinningNumberExtractor extractor = mockWinningNumberExtractor(List.of(1, 2, 3, 4, 5, 6));
 
             assertThatIllegalArgumentException()
-                    .isThrownBy(() -> WinningLotto.of(rawWinningNumbers, extractor))
+                    .isThrownBy(() -> WinningNumbers.of(rawWinningNumbers, extractor))
                     .withMessage(ExceptionMessage.WINNING_NUMBERS_IS_BLANK.getMessage());
         }
 
@@ -53,7 +53,7 @@ class WinningLottoTest {
             WinningNumberExtractor extractor = new Splitter();
 
             assertThatIllegalArgumentException()
-                    .isThrownBy(() -> WinningLotto.of(winningNumbers, extractor))
+                    .isThrownBy(() -> WinningNumbers.of(winningNumbers, extractor))
                     .withMessage(ExceptionMessage.WINNING_NUMBERS_IS_NOT_DIGIT.getMessage());
         }
     }

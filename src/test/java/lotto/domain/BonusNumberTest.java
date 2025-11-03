@@ -14,11 +14,11 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 
 class BonusNumberTest {
-    WinningLotto winningLotto;
+    WinningNumbers winningNumbers;
 
     @BeforeEach
     void setUp() {
-        winningLotto = WinningLotto.of("1,2,3,4,5,6",
+        winningNumbers = WinningNumbers.of("1,2,3,4,5,6",
                 mockWinningNumberExtractor(List.of(1, 2, 3, 4, 5, 6)));
     }
 
@@ -31,7 +31,7 @@ class BonusNumberTest {
         void registerBonusNumber() {
             String rawBonusNumber = "7";
 
-            assertThatCode(() -> BonusNumber.of(rawBonusNumber, winningLotto))
+            assertThatCode(() -> BonusNumber.of(rawBonusNumber, winningNumbers))
                     .doesNotThrowAnyException();
         }
     }
@@ -44,7 +44,7 @@ class BonusNumberTest {
         @DisplayName("보너스 번호가 공백이면 예외가 발생한다")
         void isBlank() {
             assertThatIllegalArgumentException()
-                    .isThrownBy(() -> BonusNumber.of("", winningLotto))
+                    .isThrownBy(() -> BonusNumber.of("", winningNumbers))
                     .withMessage(ExceptionMessage.BONUS_NUMBER_IS_BLANK.getMessage());
         }
 
@@ -52,7 +52,7 @@ class BonusNumberTest {
         @DisplayName("보너스 번호가 정수가 아닐 경우 예외가 발생한다")
         void isNotDigit() {
             assertThatIllegalArgumentException()
-                    .isThrownBy(() -> BonusNumber.of("칠", winningLotto))
+                    .isThrownBy(() -> BonusNumber.of("칠", winningNumbers))
                     .withMessage(ExceptionMessage.BONUS_NUMBER_IS_NOT_DIGIT.getMessage());
         }
 
@@ -61,7 +61,7 @@ class BonusNumberTest {
         @DisplayName("보너스 번호가 로또 숫자 범위의 숫자가 아닐 경우 예외가 발생한다")
         void isOutOfLottoNumberRange(String bonusNumber) {
             assertThatIllegalArgumentException()
-                    .isThrownBy(() -> BonusNumber.of(bonusNumber, winningLotto))
+                    .isThrownBy(() -> BonusNumber.of(bonusNumber, winningNumbers))
                     .withMessage(ExceptionMessage.BONUS_NUMBER_IS_OUT_OF_RANGE.getMessage());
         }
 
@@ -69,7 +69,7 @@ class BonusNumberTest {
         @DisplayName("보너스 번호가 당첨 번호와 중복일 경우 예외가 발생한다")
         void isDuplicate() {
             assertThatIllegalArgumentException()
-                    .isThrownBy(() -> BonusNumber.of("1", winningLotto))
+                    .isThrownBy(() -> BonusNumber.of("1", winningNumbers))
                     .withMessage(ExceptionMessage.BONUS_NUMBER_IS_DUPLICATE.getMessage());
         }
     }

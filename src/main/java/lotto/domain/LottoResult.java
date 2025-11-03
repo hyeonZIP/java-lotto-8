@@ -7,8 +7,8 @@ public class LottoResult {
         this.lottoReward = lottoReward;
     }
 
-    public static LottoResult of(WinningLotto winningLotto, BonusNumber bonusNumber, Lotto purchaseLotto) {
-        int matchCount = winningLotto.countMatches(purchaseLotto);
+    public static LottoResult of(WinningNumbers winningNumbers, BonusNumber bonusNumber, Lotto purchaseLotto) {
+        int matchCount = winningNumbers.countMatches(purchaseLotto);
         boolean hasBonusNumber = bonusNumber.contains(purchaseLotto);
 
         return new LottoResult(LottoReward.of(matchCount, hasBonusNumber));

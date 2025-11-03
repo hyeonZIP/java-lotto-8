@@ -4,17 +4,17 @@ import java.util.List;
 import lotto.application.required.WinningNumberExtractor;
 import lotto.domain.exception.ExceptionMessage;
 
-public class WinningLotto {
+public class WinningNumbers {
     private final Lotto lotto;
 
-    private WinningLotto(List<Integer> winningNumbers) {
+    private WinningNumbers(List<Integer> winningNumbers) {
         this.lotto = Lotto.createWinningLotto(winningNumbers);
     }
 
-    public static WinningLotto of(String winningNumbers, WinningNumberExtractor extractor) {
+    public static WinningNumbers of(String winningNumbers, WinningNumberExtractor extractor) {
         validateBlank(winningNumbers);
 
-        return new WinningLotto(extract(winningNumbers, extractor));
+        return new WinningNumbers(extract(winningNumbers, extractor));
     }
 
     public boolean contains(int number) {
