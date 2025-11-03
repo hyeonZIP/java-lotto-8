@@ -8,14 +8,14 @@ import lotto.domain.PurchaseAmount;
 public class ConsoleLottoController {
     private final ConsolePresenter consolePresenter;
     private final ConsoleInputReader consoleInputReader;
-    private final LottoOrderService lottoService;
+    private final LottoOrderService lottoOrderService;
     private final LottoDispenserService lottoDispenserService;
 
     public ConsoleLottoController(ConsolePresenter consolePresenter, ConsoleInputReader consoleInputReader,
-                                  LottoOrderService lottoService, LottoDispenserService lottoDispenserService) {
+                                  LottoOrderService lottoOrderService, LottoDispenserService lottoDispenserService) {
         this.consolePresenter = consolePresenter;
         this.consoleInputReader = consoleInputReader;
-        this.lottoService = lottoService;
+        this.lottoOrderService = lottoOrderService;
         this.lottoDispenserService = lottoDispenserService;
     }
 
@@ -29,7 +29,7 @@ public class ConsoleLottoController {
             try {
                 consolePresenter.printPurchaseAmountGuide();
                 String rawPurchaseAmount = consoleInputReader.getConsoleInput();
-                return lottoService.orderPurchaseAmount(rawPurchaseAmount);
+                return lottoOrderService.orderPurchaseAmount(rawPurchaseAmount);
             } catch (IllegalArgumentException e) {
                 consolePresenter.printErrorMessage(e.getMessage());
             }

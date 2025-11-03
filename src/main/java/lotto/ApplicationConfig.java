@@ -12,10 +12,20 @@ public class ApplicationConfig {
     public ConsoleLottoController createConsoleLottoController() {
         ConsolePresenter consolePresenter = new ConsolePresenter();
         ConsoleInputReader consoleInputReader = new ConsoleInputReader();
-        LottoOrderService lottoService = new LottoOrderService();
-        RandomNumberGenerator randomNumberGenerator = new WootecoRandomNumberGenerator();
-        LottoDispenserService lottoDispenserService = new LottoDispenserService(randomNumberGenerator);
 
-        return new ConsoleLottoController(consolePresenter, consoleInputReader, lottoService, lottoDispenserService);
+        LottoOrderService lottoOrderService = new LottoOrderService();
+        LottoDispenserService lottoDispenserService = getLottoDispenserService();
+
+        return new ConsoleLottoController(
+                consolePresenter,
+                consoleInputReader,
+                lottoOrderService,
+                lottoDispenserService
+        );
+    }
+
+    private LottoDispenserService getLottoDispenserService() {
+        RandomNumberGenerator randomNumberGenerator = new WootecoRandomNumberGenerator();
+        return new LottoDispenserService(randomNumberGenerator);
     }
 }
