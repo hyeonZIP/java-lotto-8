@@ -1,9 +1,11 @@
 package lotto.adapter.console;
 
 import lotto.adapter.console.dto.LottoDispenserResponse;
+import lotto.application.BonusNumberRegisterService;
 import lotto.application.LottoDispenserService;
 import lotto.application.LottoOrderService;
 import lotto.application.WinningLottoRegisterService;
+import lotto.domain.BonusNumber;
 import lotto.domain.Lottos;
 import lotto.domain.PurchaseAmount;
 import lotto.domain.WinningLotto;
@@ -14,15 +16,18 @@ public class ConsoleLottoController {
     private final LottoOrderService lottoOrderService;
     private final LottoDispenserService lottoDispenserService;
     private final WinningLottoRegisterService winningLottoRegisterService;
+    private final BonusNumberRegisterService bonusNumberRegisterService;
 
     public ConsoleLottoController(ConsolePresenter consolePresenter, ConsoleInputReader consoleInputReader,
                                   LottoOrderService lottoOrderService, LottoDispenserService lottoDispenserService,
-                                  WinningLottoRegisterService winningLottoRegisterService) {
+                                  WinningLottoRegisterService winningLottoRegisterService,
+                                  BonusNumberRegisterService bonusNumberRegisterService) {
         this.consolePresenter = consolePresenter;
         this.consoleInputReader = consoleInputReader;
         this.lottoOrderService = lottoOrderService;
         this.lottoDispenserService = lottoDispenserService;
         this.winningLottoRegisterService = winningLottoRegisterService;
+        this.bonusNumberRegisterService = bonusNumberRegisterService;
     }
 
     public void run() {
@@ -33,8 +38,19 @@ public class ConsoleLottoController {
 
         WinningLotto winningLotto = getWinningLotto();
 
-        consolePresenter.printBonusNumberInputGuide();
-        String rawBonusNumber = consoleInputReader.getConsoleInput();
+        BonusNumber bonusNumber = getBonusNumber(winningLotto);
+    }
+
+    private BonusNumber getBonusNumber(WinningLotto winningLotto) {
+        while (true) {
+            try {
+                consolePresenter.printBonusNumberInputGuide();
+                String rawBonusNumber = consoleInputReader.getConsoleInput();
+                return bonusNumberRegisterService.registerBonusNumber(rawBonusNumber, winningLotto);
+            } catch (IllegalArgumentException e) {
+                consolePresenter.printErrorMessage(e.getMessage());
+            }
+        }
     }
 
     private WinningLotto getWinningLotto() {
