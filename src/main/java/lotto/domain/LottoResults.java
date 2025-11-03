@@ -7,6 +7,7 @@ import java.util.stream.Collectors;
 
 public class LottoResults {
     private static final int PERCENT = 100;
+
     private final List<LottoResult> results;
 
     private LottoResults(List<LottoResult> results) {
