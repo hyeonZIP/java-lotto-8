@@ -13,8 +13,8 @@ public class LottoResults {
         this.results = List.copyOf(results);
     }
 
-    public static LottoResults of(WinningNumbers winningNumbers, BonusNumber bonusNumber, Lottos purchaseLottos) {
-        List<LottoResult> results = purchaseLottos.getLottos().stream()
+    public static LottoResults of(WinningNumbers winningNumbers, BonusNumber bonusNumber, Lottos purchasedLottos) {
+        List<LottoResult> results = purchasedLottos.getLottos().stream()
                 .map(purchaseLotto -> LottoResult.of(winningNumbers, bonusNumber, purchaseLotto))
                 .toList();
 
