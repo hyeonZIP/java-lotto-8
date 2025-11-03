@@ -19,7 +19,7 @@ class PurchasedAmountTest {
         @ValueSource(strings = {"1000", "10000", "12345000", "100000000"})
         @DisplayName("올바른 구입금액이 입력되면 예외가 발생하지 않는다")
         void orderPurchaseAmount(String rawPurchaseAmount) {
-            assertThatCode(() -> new PurchasedAmount(rawPurchaseAmount))
+            assertThatCode(() -> PurchasedAmount.of(rawPurchaseAmount))
                     .doesNotThrowAnyException();
         }
     }
@@ -34,7 +34,7 @@ class PurchasedAmountTest {
         @DisplayName("구입금액이 공백이면 예외가 발생한다")
         void isBlank(String rawPurchaseAmount) {
             assertThatIllegalArgumentException()
-                    .isThrownBy(() -> new PurchasedAmount(rawPurchaseAmount))
+                    .isThrownBy(() -> PurchasedAmount.of(rawPurchaseAmount))
                     .withMessageContaining(ExceptionMessage.PURCHASE_AMOUNT_IS_EMPTY.getMessage());
         }
 
@@ -43,7 +43,7 @@ class PurchasedAmountTest {
         @DisplayName("구입금액이 정수가 아닐 경우 예외가 발생한다")
         void isNotDigit(String rawPurchaseAmount) {
             assertThatIllegalArgumentException()
-                    .isThrownBy(() -> new PurchasedAmount((rawPurchaseAmount)))
+                    .isThrownBy(() -> PurchasedAmount.of((rawPurchaseAmount)))
                     .withMessage(ExceptionMessage.PURCHASE_AMOUNT_IS_NOT_DIGIT.getMessage());
         }
 
@@ -52,7 +52,7 @@ class PurchasedAmountTest {
         @DisplayName("구입금액이 양수가 아닐 경우 예외가 발생한다")
         void isNotPositive(String rawPurchaseAmount) {
             assertThatIllegalArgumentException()
-                    .isThrownBy(() -> new PurchasedAmount((rawPurchaseAmount)))
+                    .isThrownBy(() -> PurchasedAmount.of((rawPurchaseAmount)))
                     .withMessage(ExceptionMessage.PURCHASE_AMOUNT_IS_NOT_POSITIVE.getMessage());
         }
 
@@ -61,7 +61,7 @@ class PurchasedAmountTest {
         @DisplayName("구입금액이 로또 1장 가격(1,000)으로 나누어 떨어지지 않을 경우 예외가 발생한다")
         void isIndivisible(String rawPurchaseAmount) {
             assertThatIllegalArgumentException()
-                    .isThrownBy(() -> new PurchasedAmount((rawPurchaseAmount)))
+                    .isThrownBy(() -> PurchasedAmount.of((rawPurchaseAmount)))
                     .withMessage(ExceptionMessage.PURCHASE_AMOUNT_IS_INDIVISIBLE.getMessage());
         }
 
@@ -70,7 +70,7 @@ class PurchasedAmountTest {
         @DisplayName("구임금액이 1억원을 넘을 경우 예외가 발생한다")
         void isOverOneBillion(String rawPurchaseAmount) {
             assertThatIllegalArgumentException()
-                    .isThrownBy(() -> new PurchasedAmount((rawPurchaseAmount)))
+                    .isThrownBy(() -> PurchasedAmount.of((rawPurchaseAmount)))
                     .withMessage(ExceptionMessage.PURCHASE_AMOUNT_IS_OVER_MAXIMUM.getMessage());
         }
     }

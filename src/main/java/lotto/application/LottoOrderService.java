@@ -6,6 +6,6 @@ import lotto.domain.PurchasedAmount;
 public class LottoOrderService implements LottoOrder {
     @Override
     public PurchasedAmount orderPurchaseAmount(String rawPurchaseAmount) {
-        return new PurchasedAmount(rawPurchaseAmount);
+        return PurchasedAmount.of(rawPurchaseAmount);
     }
 }

@@ -9,8 +9,12 @@ public class PurchasedAmount {
 
     private final BigInteger value;
 
-    public PurchasedAmount(String rawPurchaseAmount) {
-        this.value = parseAndValidate(rawPurchaseAmount);
+    public PurchasedAmount(BigInteger purchasedAmount) {
+        this.value = purchasedAmount;
+    }
+
+    public static PurchasedAmount of(String rawPurchasedAmount){
+        return new PurchasedAmount(parseAndValidate(rawPurchasedAmount));
     }
 
     public int calculateLottoCount() {
@@ -21,7 +25,7 @@ public class PurchasedAmount {
         return value.intValueExact();
     }
 
-    private BigInteger parseAndValidate(String rawPurchaseAmount) {
+    private static BigInteger parseAndValidate(String rawPurchaseAmount) {
         validateEmpty(rawPurchaseAmount);
 
         BigInteger purchaseAmount = parse(rawPurchaseAmount);
@@ -33,17 +37,17 @@ public class PurchasedAmount {
         return purchaseAmount;
     }
 
-    private void validateMaximum(BigInteger purchaseAmount) {
+    private static void validateMaximum(BigInteger purchaseAmount) {
         if (isBiggerThanMaximum(purchaseAmount)) {
             throw new IllegalArgumentException(ExceptionMessage.PURCHASE_AMOUNT_IS_OVER_MAXIMUM.getMessage());
         }
     }
 
-    private boolean isBiggerThanMaximum(BigInteger purchaseAmount) {
+    private static boolean isBiggerThanMaximum(BigInteger purchaseAmount) {
         return purchaseAmount.compareTo(MAXIMUM_PURCHASE_AMOUNT) > 0;
     }
 
-    private BigInteger parse(String rawPurchaseAmount) {
+    private static BigInteger parse(String rawPurchaseAmount) {
         try {
             return new BigInteger(rawPurchaseAmount);
         } catch (NumberFormatException e) {
@@ -51,29 +55,29 @@ public class PurchasedAmount {
         }
     }
 
-    private void validateEmpty(String rawPurchaseAmount) {
+    private static void validateEmpty(String rawPurchaseAmount) {
         if (rawPurchaseAmount == null || rawPurchaseAmount.isBlank()) {
             throw new IllegalArgumentException(ExceptionMessage.PURCHASE_AMOUNT_IS_EMPTY.getMessage());
         }
     }
 
-    private void validatePositive(BigInteger purchaseAmount) {
+    private static void validatePositive(BigInteger purchaseAmount) {
         if (isNegative(purchaseAmount)) {
             throw new IllegalArgumentException(ExceptionMessage.PURCHASE_AMOUNT_IS_NOT_POSITIVE.getMessage());
         }
     }
 
-    private boolean isNegative(BigInteger purchaseAmount) {
+    private static boolean isNegative(BigInteger purchaseAmount) {
         return purchaseAmount.compareTo(BigInteger.ZERO) <= 0;
     }
 
-    private void validateDivisible(BigInteger purchaseAmount) {
+    private static void validateDivisible(BigInteger purchaseAmount) {
         if (isIndivisible(purchaseAmount)) {
             throw new IllegalArgumentException(ExceptionMessage.PURCHASE_AMOUNT_IS_INDIVISIBLE.getMessage());
         }
     }
 
-    private boolean isIndivisible(BigInteger purchaseAmount) {
+    private static boolean isIndivisible(BigInteger purchaseAmount) {
         return !purchaseAmount.mod(LOTTO_PRICE).equals(BigInteger.ZERO);
     }
 }
