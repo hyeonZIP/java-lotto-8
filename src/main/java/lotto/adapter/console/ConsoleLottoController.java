@@ -2,8 +2,8 @@ package lotto.adapter.console;
 
 import lotto.adapter.console.dto.LottoDispenserResponse;
 import lotto.adapter.console.dto.LottoResultResponse;
-import lotto.application.LottoDispenserService;
-import lotto.application.WinningLottoRegisterService;
+import lotto.application.required.RandomNumberGenerator;
+import lotto.application.required.WinningNumberExtractor;
 import lotto.domain.BonusNumber;
 import lotto.domain.LottoResults;
 import lotto.domain.Lottos;
@@ -13,22 +13,22 @@ import lotto.domain.WinningLotto;
 public class ConsoleLottoController {
     private final ConsolePresenter consolePresenter;
     private final ConsoleInputReader consoleInputReader;
-    private final LottoDispenserService lottoDispenserService;
-    private final WinningLottoRegisterService winningLottoRegisterService;
+    private final RandomNumberGenerator randomNumberGenerator;
+    private final WinningNumberExtractor winningNumberExtractor;
 
     public ConsoleLottoController(ConsolePresenter consolePresenter, ConsoleInputReader consoleInputReader,
-                                  LottoDispenserService lottoDispenserService,
-                                  WinningLottoRegisterService winningLottoRegisterService) {
+                                  RandomNumberGenerator randomNumberGenerator,
+                                  WinningNumberExtractor winningNumberExtractor) {
         this.consolePresenter = consolePresenter;
         this.consoleInputReader = consoleInputReader;
-        this.lottoDispenserService = lottoDispenserService;
-        this.winningLottoRegisterService = winningLottoRegisterService;
+        this.randomNumberGenerator = randomNumberGenerator;
+        this.winningNumberExtractor = winningNumberExtractor;
     }
 
     public void run() {
         PurchasedAmount purchasedAmount = getPurchaseAmount();
 
-        Lottos lottos = getLottos(purchasedAmount);
+        Lottos lottos = Lottos.of(purchasedAmount, randomNumberGenerator);
         consolePresenter.printLottoDispenserResult(LottoDispenserResponse.of(lottos));
 
         WinningLotto winningLotto = getWinningLotto();
@@ -57,7 +57,7 @@ public class ConsoleLottoController {
             try {
                 consolePresenter.printWinningNumbersInputGuide();
                 String rawWinningNumbers = consoleInputReader.getConsoleInput();
-                return winningLottoRegisterService.registerWinningLotto(rawWinningNumbers);
+                return WinningLotto.of(rawWinningNumbers, winningNumberExtractor);
             } catch (IllegalArgumentException e) {
                 consolePresenter.printErrorMessage(e.getMessage());
             }
@@ -74,9 +74,5 @@ public class ConsoleLottoController {
                 consolePresenter.printErrorMessage(e.getMessage());
             }
         }
-    }
-
-    private Lottos getLottos(PurchasedAmount purchasedAmount) {
-        return lottoDispenserService.dispenseLottos(purchasedAmount);
     }
 }

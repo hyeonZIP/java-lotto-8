@@ -5,8 +5,6 @@ import lotto.adapter.console.ConsoleLottoController;
 import lotto.adapter.console.ConsolePresenter;
 import lotto.adapter.extractor.Splitter;
 import lotto.adapter.random.WootecoRandomNumberGenerator;
-import lotto.application.LottoDispenserService;
-import lotto.application.WinningLottoRegisterService;
 import lotto.application.required.RandomNumberGenerator;
 import lotto.application.required.WinningNumberExtractor;
 
@@ -15,20 +13,13 @@ public class ApplicationConfig {
         ConsolePresenter consolePresenter = new ConsolePresenter();
         ConsoleInputReader consoleInputReader = new ConsoleInputReader();
 
-        LottoDispenserService lottoDispenserService = getLottoDispenserService();
-        WinningLottoRegisterService winningLottoRegisterService = getWinningLottoRegisterService();
-
-        return new ConsoleLottoController(consolePresenter, consoleInputReader,
-                lottoDispenserService, winningLottoRegisterService);
-    }
-
-    private WinningLottoRegisterService getWinningLottoRegisterService() {
-        WinningNumberExtractor extractor = new Splitter();
-        return new WinningLottoRegisterService(extractor);
-    }
-
-    private LottoDispenserService getLottoDispenserService() {
         RandomNumberGenerator randomNumberGenerator = new WootecoRandomNumberGenerator();
-        return new LottoDispenserService(randomNumberGenerator);
+        WinningNumberExtractor winningNumberExtractor = new Splitter();
+
+        return new ConsoleLottoController(
+                consolePresenter,
+                consoleInputReader,
+                randomNumberGenerator,
+                winningNumberExtractor);
     }
 }
