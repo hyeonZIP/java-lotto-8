@@ -24,7 +24,7 @@ public class Lotto {
         return new Lotto(numbers);
     }
 
-    public static Lotto createWinningLotto(List<Integer> numbers) {
+    public static Lotto createWinningNumbers(List<Integer> numbers) {
         return new Lotto(numbers);
     }
 

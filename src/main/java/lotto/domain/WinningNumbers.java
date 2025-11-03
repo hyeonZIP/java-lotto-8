@@ -5,10 +5,10 @@ import lotto.application.required.WinningNumberExtractor;
 import lotto.domain.exception.ExceptionMessage;
 
 public class WinningNumbers {
-    private final Lotto lotto;
+    private final Lotto winningNumbers;
 
     private WinningNumbers(List<Integer> winningNumbers) {
-        this.lotto = Lotto.createWinningLotto(winningNumbers);
+        this.winningNumbers = Lotto.createWinningNumbers(winningNumbers);
     }
 
     public static WinningNumbers of(String winningNumbers, WinningNumberExtractor extractor) {
@@ -18,7 +18,7 @@ public class WinningNumbers {
     }
 
     public boolean contains(int number) {
-        return lotto.hasContains(number);
+        return winningNumbers.hasContains(number);
     }
 
     private static List<Integer> extract(String winningNumbers, WinningNumberExtractor extractor) {
@@ -37,7 +37,7 @@ public class WinningNumbers {
 
     public int countMatches(Lotto purchaseLotto) {
         List<Integer> purchaseNumbers = purchaseLotto.getNumbers();
-        List<Integer> winningNumbers = lotto.getNumbers();
+        List<Integer> winningNumbers = this.winningNumbers.getNumbers();
 
         return (int) purchaseNumbers.stream()
                 .filter(winningNumbers::contains)
@@ -45,6 +45,6 @@ public class WinningNumbers {
     }
 
     public boolean isOutOfLottoNumberRange(int number) {
-        return lotto.isOutOfLottoNumberRange(number);
+        return winningNumbers.isOutOfLottoNumberRange(number);
     }
 }
