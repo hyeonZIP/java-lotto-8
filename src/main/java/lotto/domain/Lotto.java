@@ -24,6 +24,10 @@ public class Lotto {
         return new Lotto(numbers);
     }
 
+    public static Lotto createWinningLotto(List<Integer> numbers) {
+        return new Lotto(numbers);
+    }
+
     public List<Integer> getNumbers() {
         return List.copyOf(numbers);
     }
