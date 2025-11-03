@@ -4,12 +4,15 @@ import static org.assertj.core.api.Assertions.assertThatCode;
 import static org.assertj.core.api.Assertions.assertThatIllegalArgumentException;
 
 import java.util.List;
+import lotto.application.required.RandomNumberGenerator;
 import lotto.domain.exception.ExceptionMessage;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
 class LottoTest {
+    RandomNumberGenerator randomNumberGenerator;
+
     @Nested
     @DisplayName("성공 케이스")
     class Success {
@@ -17,7 +20,9 @@ class LottoTest {
         @Test
         @DisplayName("올바른 로또 번호가 오면 예외가 발생하지 않는다")
         void validLottoNumbers() {
-            assertThatCode(() -> new Lotto(List.of(1, 2, 3, 4, 5, 6)))
+            randomNumberGenerator = (start, end, size) -> List.of(1, 2, 3, 4, 5, 6);
+
+            assertThatCode(() -> new Lotto(randomNumberGenerator))
                     .doesNotThrowAnyException();
         }
     }
@@ -29,29 +34,39 @@ class LottoTest {
         @Test
         @DisplayName("로또 번호의 개수가 6개가 넘어가면 예외가 발생한다")
         void overMaximumLottoCount() {
+            randomNumberGenerator = mock(List.of(1, 2, 3, 4, 5, 6, 7));
+
             assertThatIllegalArgumentException()
-                    .isThrownBy(() -> new Lotto(List.of(1, 2, 3, 4, 5, 6, 7)))
+                    .isThrownBy(() -> new Lotto(randomNumberGenerator))
                     .withMessage(ExceptionMessage.LOTTO_INVALID_SIZE.getMessage());
         }
 
         @Test
         @DisplayName("로또 번호에 중복된 숫자가 있으면 예외가 발생한다.")
         void isDuplicate() {
+            randomNumberGenerator = mock(List.of(1, 2, 3, 4, 5, 5));
+
             assertThatIllegalArgumentException()
-                    .isThrownBy(() -> new Lotto(List.of(1, 2, 3, 4, 5, 5)))
+                    .isThrownBy(() -> new Lotto(randomNumberGenerator))
                     .withMessage(ExceptionMessage.LOTTO_IS_DUPLICATE.getMessage());
         }
 
         @Test
         @DisplayName("로또 번호가 (1~45)를 벗어날 경우 예외가 발생한다")
         void isInvalidRange() {
+            randomNumberGenerator = mock(List.of(1, 2, 3, 4, 5, 46));
             assertThatIllegalArgumentException()
-                    .isThrownBy(() -> new Lotto(List.of(1, 2, 3, 4, 5, 46)))
+                    .isThrownBy(() -> new Lotto(randomNumberGenerator))
                     .withMessage(ExceptionMessage.LOTTO_INVALID_RANGE.getMessage());
 
+            randomNumberGenerator = mock(List.of(0, 1, 2, 3, 4, 5));
             assertThatIllegalArgumentException()
-                    .isThrownBy(() -> new Lotto(List.of(0, 1, 2, 3, 4, 5)))
+                    .isThrownBy(() -> new Lotto(randomNumberGenerator))
                     .withMessage(ExceptionMessage.LOTTO_INVALID_RANGE.getMessage());
+        }
+
+        private RandomNumberGenerator mock(List<Integer> numbers) {
+            return (start, end, size) -> numbers;
         }
     }
 }
