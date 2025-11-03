@@ -1,10 +1,12 @@
 package lotto.domain;
 
+import java.math.BigInteger;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
 public class LottoResults {
+    private static final int PERCENT = 100;
     private final List<LottoResult> results;
 
     private LottoResults(List<LottoResult> results) {
@@ -25,14 +27,18 @@ public class LottoResults {
     }
 
     public double calculateRevenueRate(PurchasedAmount purchasedAmount) {
-        int totalReward = getTotalReward();
+        BigInteger totalReward = getTotalReward();
 
-        return ((double) totalReward / purchasedAmount.getAmount() * 100);
+        return (double) totalReward.longValue() / purchasedAmount.getAmount() * PERCENT;
     }
 
-    private int getTotalReward() {
-        return results.stream()
-                .mapToInt(lottoResult -> lottoResult.getLottoReward().getReward())
-                .sum();
+    private BigInteger getTotalReward() {
+        BigInteger totalReward = BigInteger.ZERO;
+
+        for (LottoResult result : results) {
+            totalReward = totalReward.add(BigInteger.valueOf(result.getLottoReward().getReward()));
+        }
+
+        return totalReward;
     }
 }
