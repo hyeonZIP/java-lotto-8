@@ -11,6 +11,7 @@ public class ConsolePresenter {
     private static final String COMMA_DELIMITER = ", ";
     private static final String WINNING_NUMBERS_INPUT_GUIDE = "\n당첨 번호를 입력해 주세요.";
     private static final String BONUS_NUMBER_INPUT_GUIDE = "\n보너스 번호를 입력해 주세요.";
+    private static final String LOTTO_RESULT_HEADER = "\n당첨 통계";
 
     public void printPurchaseAmountGuide() {
         System.out.println(PURCHASE_AMOUNT_GUIDE);
@@ -41,5 +42,9 @@ public class ConsolePresenter {
                 .collect(Collectors.joining(COMMA_DELIMITER));
 
         System.out.printf(DISPENSED_LOTTO_NUMBERS_DETAIL_FORMAT, numbersDetail);
+    }
+
+    public void printLottoResult() {
+        System.out.println(LOTTO_RESULT_HEADER);
     }
 }

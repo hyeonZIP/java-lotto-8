@@ -42,6 +42,8 @@ public class ConsoleLottoController {
         BonusNumber bonusNumber = getBonusNumber(winningLotto);
 
         LottoResults results = LottoResults.of(winningLotto, bonusNumber, lottos);
+
+        consolePresenter.printLottoResult();
     }
 
     private BonusNumber getBonusNumber(WinningLotto winningLotto) {
