@@ -13,6 +13,11 @@ public enum ExceptionMessage {
 
     WINNING_NUMBERS_IS_BLANK("[ERROR] 당첨 번호는 공백일 수 없습니다."),
     WINNING_NUMBERS_IS_NOT_DIGIT("[ERROR] 당첨 번호를 정수로 변환할 수 없습니다."),
+
+    BONUS_NUMBER_IS_BLANK("[ERROR] 보너스 번호는 공백일 수 없습니다."),
+    BONUS_NUMBER_IS_NOT_DIGIT("[ERROR] 보너스 번호를 정수로 변환할 수 없습니다."),
+    BONUS_NUMBER_IS_OUT_OF_RANGE("[ERROR] 보너스 번호는 로또 번호의 숫자 범위를 벗어날 수 없습니다."),
+    BONUS_NUMBER_IS_DUPLICATE("[ERROR] 보너스 번호는 당첨 번호에 없는 숫자여야 합니다."),
     ;
 
     private final String message;
