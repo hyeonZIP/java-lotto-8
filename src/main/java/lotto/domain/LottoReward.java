@@ -11,9 +11,9 @@ public enum LottoReward {
     FIRST(6, false, 2_000_000_000),
     ;
 
-    private int matchCount;
-    private boolean hasBonusNumber;
-    private int reward;
+    private final int matchCount;
+    private final boolean hasBonusNumber;
+    private final int reward;
 
     LottoReward(int matchCount, boolean hasBonusNumber, int reward) {
         this.matchCount = matchCount;
