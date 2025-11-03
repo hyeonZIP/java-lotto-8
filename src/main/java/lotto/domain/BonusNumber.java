@@ -20,6 +20,10 @@ public class BonusNumber {
         return null;
     }
 
+    public boolean contains(Lotto purchaseLotto) {
+        return purchaseLotto.getNumbers().contains(value);
+    }
+
     private static void validateDuplicate(int bonusNumber, WinningLotto winningLotto) {
         if (winningLotto.contains(bonusNumber)) {
             throw new IllegalArgumentException(ExceptionMessage.BONUS_NUMBER_IS_DUPLICATE.getMessage());

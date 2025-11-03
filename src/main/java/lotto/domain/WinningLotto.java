@@ -38,4 +38,13 @@ public class WinningLotto {
             throw new IllegalArgumentException(ExceptionMessage.WINNING_NUMBERS_IS_BLANK.getMessage());
         }
     }
+
+    public int countMatches(Lotto purchaseLotto) {
+        List<Integer> purchaseNumbers = purchaseLotto.getNumbers();
+        List<Integer> winningNumbers = lotto.getNumbers();
+
+        return (int) purchaseNumbers.stream()
+                .filter(winningNumbers::contains)
+                .count();
+    }
 }
