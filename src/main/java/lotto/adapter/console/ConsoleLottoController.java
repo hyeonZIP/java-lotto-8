@@ -1,5 +1,6 @@
 package lotto.adapter.console;
 
+import lotto.adapter.console.dto.LottoDispenserResponse;
 import lotto.application.LottoDispenserService;
 import lotto.application.LottoOrderService;
 import lotto.domain.Lottos;
@@ -22,6 +23,7 @@ public class ConsoleLottoController {
     public void run() {
         PurchaseAmount purchaseAmount = getPurchaseAmount();
         Lottos lottos = getLottos(purchaseAmount);
+        consolePresenter.printLottoDispenserResult(LottoDispenserResponse.of(lottos));
     }
 
     private PurchaseAmount getPurchaseAmount() {
