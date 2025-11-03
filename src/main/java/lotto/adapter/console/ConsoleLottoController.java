@@ -24,6 +24,8 @@ public class ConsoleLottoController {
         PurchaseAmount purchaseAmount = getPurchaseAmount();
         Lottos lottos = getLottos(purchaseAmount);
         consolePresenter.printLottoDispenserResult(LottoDispenserResponse.of(lottos));
+
+        consolePresenter.printWinningNumbersInputGuide();
     }
 
     private PurchaseAmount getPurchaseAmount() {
