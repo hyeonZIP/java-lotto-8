@@ -9,7 +9,7 @@ public class BonusNumber {
         this.value = value;
     }
 
-    public static BonusNumber register(String rawBonusNumber, WinningLotto winningLotto) {
+    public static BonusNumber of(String rawBonusNumber, WinningLotto winningLotto) {
         validateBlank(rawBonusNumber);
 
         int bonusNumber = parse(rawBonusNumber);

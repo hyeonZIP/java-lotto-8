@@ -45,7 +45,7 @@ public class ConsoleLottoController {
             try {
                 consolePresenter.printBonusNumberInputGuide();
                 String rawBonusNumber = consoleInputReader.getConsoleInput();
-                return BonusNumber.register(rawBonusNumber, winningLotto);
+                return BonusNumber.of(rawBonusNumber, winningLotto);
             } catch (IllegalArgumentException e) {
                 consolePresenter.printErrorMessage(e.getMessage());
             }
