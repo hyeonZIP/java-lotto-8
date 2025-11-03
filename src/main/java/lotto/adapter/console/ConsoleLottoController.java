@@ -6,6 +6,7 @@ import lotto.application.LottoDispenserService;
 import lotto.application.LottoOrderService;
 import lotto.application.WinningLottoRegisterService;
 import lotto.domain.BonusNumber;
+import lotto.domain.LottoResults;
 import lotto.domain.Lottos;
 import lotto.domain.PurchaseAmount;
 import lotto.domain.WinningLotto;
@@ -39,6 +40,8 @@ public class ConsoleLottoController {
         WinningLotto winningLotto = getWinningLotto();
 
         BonusNumber bonusNumber = getBonusNumber(winningLotto);
+
+        LottoResults results = LottoResults.of(winningLotto, bonusNumber, lottos);
     }
 
     private BonusNumber getBonusNumber(WinningLotto winningLotto) {

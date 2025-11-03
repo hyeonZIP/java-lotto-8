@@ -1,6 +1,8 @@
 package lotto.domain;
 
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 public class LottoResults {
     private final List<LottoResult> results;
@@ -15,5 +17,10 @@ public class LottoResults {
                 .toList();
 
         return new LottoResults(results);
+    }
+
+    public Map<LottoReward, Long> tallyReward() {
+        return results.stream()
+                .collect(Collectors.groupingBy(LottoResult::getLottoReward, Collectors.counting()));
     }
 }

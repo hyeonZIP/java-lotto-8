@@ -13,4 +13,8 @@ public class LottoResult {
 
         return new LottoResult(LottoReward.of(matchCount, hasBonusNumber));
     }
+
+    public LottoReward getLottoReward() {
+        return lottoReward;
+    }
 }
