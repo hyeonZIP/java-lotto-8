@@ -19,7 +19,7 @@ public class LottoDispenserService implements LottoDispenser {
     public Lottos dispenseLottos(PurchaseAmount purchaseAmount) {
         int lottoCount = purchaseAmount.calculateLottoCount();
 
-        List<Lotto> lottos = Stream.generate(() -> new Lotto(randomNumberGenerator))
+        List<Lotto> lottos = Stream.generate(() -> Lotto.createRandomLotto(randomNumberGenerator))
                 .limit(lottoCount)
                 .toList();
 

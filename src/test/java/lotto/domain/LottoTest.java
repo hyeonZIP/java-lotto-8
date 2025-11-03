@@ -22,7 +22,7 @@ class LottoTest {
         void validLottoNumbers() {
             randomNumberGenerator = (start, end, size) -> List.of(1, 2, 3, 4, 5, 6);
 
-            assertThatCode(() -> new Lotto(randomNumberGenerator))
+            assertThatCode(() -> Lotto.createRandomLotto(randomNumberGenerator))
                     .doesNotThrowAnyException();
         }
     }
@@ -37,7 +37,7 @@ class LottoTest {
             randomNumberGenerator = mock(List.of(1, 2, 3, 4, 5, 6, 7));
 
             assertThatIllegalArgumentException()
-                    .isThrownBy(() -> new Lotto(randomNumberGenerator))
+                    .isThrownBy(() -> Lotto.createRandomLotto(randomNumberGenerator))
                     .withMessage(ExceptionMessage.LOTTO_INVALID_SIZE.getMessage());
         }
 
@@ -47,7 +47,7 @@ class LottoTest {
             randomNumberGenerator = mock(List.of(1, 2, 3, 4, 5, 5));
 
             assertThatIllegalArgumentException()
-                    .isThrownBy(() -> new Lotto(randomNumberGenerator))
+                    .isThrownBy(() -> Lotto.createRandomLotto(randomNumberGenerator))
                     .withMessage(ExceptionMessage.LOTTO_IS_DUPLICATE.getMessage());
         }
 
@@ -56,12 +56,12 @@ class LottoTest {
         void isInvalidRange() {
             randomNumberGenerator = mock(List.of(1, 2, 3, 4, 5, 46));
             assertThatIllegalArgumentException()
-                    .isThrownBy(() -> new Lotto(randomNumberGenerator))
+                    .isThrownBy(() -> Lotto.createRandomLotto(randomNumberGenerator))
                     .withMessage(ExceptionMessage.LOTTO_INVALID_RANGE.getMessage());
 
             randomNumberGenerator = mock(List.of(0, 1, 2, 3, 4, 5));
             assertThatIllegalArgumentException()
-                    .isThrownBy(() -> new Lotto(randomNumberGenerator))
+                    .isThrownBy(() -> Lotto.createRandomLotto(randomNumberGenerator))
                     .withMessage(ExceptionMessage.LOTTO_INVALID_RANGE.getMessage());
         }
 

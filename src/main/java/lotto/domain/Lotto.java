@@ -13,10 +13,15 @@ public class Lotto {
 
     private final List<Integer> numbers;
 
-    public Lotto(RandomNumberGenerator randomNumberGenerator) {
-        List<Integer> numbers = getRandomNumbers(randomNumberGenerator);
+    private Lotto(List<Integer> numbers) {
         validateLotto(numbers);
         this.numbers = List.copyOf(numbers);
+    }
+
+    public static Lotto createRandomLotto(RandomNumberGenerator randomNumberGenerator) {
+        List<Integer> numbers = getRandomNumbers(randomNumberGenerator);
+
+        return new Lotto(numbers);
     }
 
     public List<Integer> getNumbers() {
