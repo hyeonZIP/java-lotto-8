@@ -4,6 +4,7 @@ import static org.assertj.core.api.Assertions.assertThatCode;
 import static org.assertj.core.api.Assertions.assertThatIllegalArgumentException;
 
 import java.util.List;
+import lotto.adapter.extractor.Splitter;
 import lotto.application.required.WinningNumberExtractor;
 import lotto.domain.exception.ExceptionMessage;
 import org.junit.jupiter.api.DisplayName;
@@ -43,6 +44,17 @@ class WinningLottoTest {
             assertThatIllegalArgumentException()
                     .isThrownBy(() -> WinningLotto.of(rawWinningNumbers, extractor))
                     .withMessage(ExceptionMessage.WINNING_NUMBERS_IS_BLANK.getMessage());
+        }
+
+        @Test
+        @DisplayName("당첨 번호가 정수로 변환할 수 없는 경우 예외가 발생한다")
+        void isNotDigit() {
+            String winningNumbers = "1,2,3,사,오,육";
+            WinningNumberExtractor extractor = new Splitter();
+
+            assertThatIllegalArgumentException()
+                    .isThrownBy(() -> WinningLotto.of(winningNumbers, extractor))
+                    .withMessage(ExceptionMessage.WINNING_NUMBERS_IS_NOT_DIGIT.getMessage());
         }
     }
 

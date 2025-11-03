@@ -12,6 +12,7 @@ public enum ExceptionMessage {
     LOTTO_INVALID_RANGE("[ERROR] 로또 번호의 숫자 범위를 벗어나는 경우가 있습니다."),
 
     WINNING_NUMBERS_IS_BLANK("[ERROR] 당첨 번호는 공백일 수 없습니다."),
+    WINNING_NUMBERS_IS_NOT_DIGIT("[ERROR] 당첨 번호를 정수로 변환할 수 없습니다."),
     ;
 
     private final String message;
