@@ -1,6 +1,7 @@
 package lotto.adapter.console;
 
 import lotto.adapter.console.dto.LottoDispenserResponse;
+import lotto.adapter.console.dto.LottoResultResponse;
 import lotto.application.BonusNumberRegisterService;
 import lotto.application.LottoDispenserService;
 import lotto.application.LottoOrderService;
@@ -43,7 +44,7 @@ public class ConsoleLottoController {
 
         LottoResults results = LottoResults.of(winningLotto, bonusNumber, lottos);
 
-        consolePresenter.printLottoResult();
+        consolePresenter.printLottoResult(LottoResultResponse.of(results, purchaseAmount));
     }
 
     private BonusNumber getBonusNumber(WinningLotto winningLotto) {

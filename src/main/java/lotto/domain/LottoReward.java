@@ -30,6 +30,14 @@ public enum LottoReward {
                 .orElse(NONE);
     }
 
+    public int getMatchCount() {
+        return matchCount;
+    }
+
+    public boolean getHasBonusNumber() {
+        return hasBonusNumber;
+    }
+
     public int getReward() {
         return reward;
     }

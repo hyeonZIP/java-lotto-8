@@ -24,10 +24,10 @@ public class LottoResults {
                 .collect(Collectors.groupingBy(LottoResult::getLottoReward, Collectors.counting()));
     }
 
-    public Double calculateRevenueRate(PurchaseAmount purchaseAmount) {
+    public double calculateRevenueRate(PurchaseAmount purchaseAmount) {
         int totalReward = getTotalReward();
 
-        return (double) (totalReward / purchaseAmount.getAmount() * 100);
+        return ((double) totalReward / purchaseAmount.getAmount() * 100);
     }
 
     private int getTotalReward() {
