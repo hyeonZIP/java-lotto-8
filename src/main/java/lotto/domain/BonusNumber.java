@@ -17,7 +17,7 @@ public class BonusNumber {
         validateRange(bonusNumber, winningLotto);
         validateDuplicate(bonusNumber, winningLotto);
 
-        return null;
+        return new BonusNumber(bonusNumber);
     }
 
     public boolean contains(Lotto purchaseLotto) {
