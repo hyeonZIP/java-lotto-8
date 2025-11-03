@@ -26,6 +26,7 @@ public class ConsoleLottoController {
         consolePresenter.printLottoDispenserResult(LottoDispenserResponse.of(lottos));
 
         consolePresenter.printWinningNumbersInputGuide();
+        String rawWinningNumbers = consoleInputReader.getConsoleInput();
     }
 
     private PurchaseAmount getPurchaseAmount() {
