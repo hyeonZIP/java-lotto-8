@@ -23,4 +23,16 @@ public class LottoResults {
         return results.stream()
                 .collect(Collectors.groupingBy(LottoResult::getLottoReward, Collectors.counting()));
     }
+
+    public Double calculateRevenueRate(PurchaseAmount purchaseAmount) {
+        int totalReward = getTotalReward();
+
+        return (double) (totalReward / purchaseAmount.getAmount() * 100);
+    }
+
+    private int getTotalReward() {
+        return results.stream()
+                .mapToInt(lottoResult -> lottoResult.getLottoReward().getReward())
+                .sum();
+    }
 }

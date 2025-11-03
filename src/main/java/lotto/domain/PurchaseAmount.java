@@ -17,6 +17,10 @@ public class PurchaseAmount {
         return value.divide(LOTTO_PRICE).intValueExact();
     }
 
+    public int getAmount() {
+        return value.intValueExact();
+    }
+
     private BigInteger parseAndValidate(String rawPurchaseAmount) {
         validateEmpty(rawPurchaseAmount);
 
